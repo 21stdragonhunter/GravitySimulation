@@ -32,6 +32,7 @@ function canvasApp() {
         this.radius = radius;
     };
     Particle.prototype.collide = function(other) {
+        // the other argument will eventually need to be an array of Particles, which are all colliding with this one
         var rise = -(other.x - this.x);
         var run = other.y - this.y;
         this.reflect(run, rise);
@@ -47,9 +48,15 @@ function canvasApp() {
     };
     Particle.prototype.move = function() {
         this.vector.nextPosition();
-        // check for collisions with other particles, and then call collision if they have collided. The methodneeds to be
+        // check for collisions with other particles, and then call collision if they have collided. The method needs to be
         // reworked in case more than two particles collide at once
-    }
+    };
+
+    var Clump = function() {
+        this.particles = [];
+    };
+    Clump.prototype.addParticle = function(particle) {};
+    Clump.prototype.order = function() {};
 
 
 
