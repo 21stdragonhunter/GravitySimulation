@@ -4,7 +4,7 @@ function eventWindowLoaded() {
 }
 
 function canvasApp() {
-    var MOMENTUM_TRANSFER_RATE = 0.8;  // the rate only applies to the momentum difference, not the full momentum
+    var MOMENTUM_TRANSFER_RATE = 0.8;
 
     var Vector = function Vector(x, y, move_x, move_y) {
         this.x = x;
@@ -33,16 +33,29 @@ function canvasApp() {
     };
     Particle.prototype.collide = function(other) {
         // the other argument will eventually need to be an array of Particles, which are all colliding with this one
+        // var rise = -(other.x - this.x);
+        // var run = other.y - this.y;
+        // this.reflect(run, rise);
+        // other.reflect(run, rise);
+        // this_velocity = ((this.velocity * this.mass) + (other.velocity * other.mass) +
+        //                 ((1 - MOMENTUM_TRANSFER_RATE) * Math.abs((this.velocity * this.mass) - (other.velocity * other.mass))))
+        //                 / (2 * this.mass);
+        // other_velocity = ((this.mass * this_velocity) -
+        //                  (1 - MOMENTUM_TRANSFER_RATE) * Math.abs((this.velocity * this.mass) - (other.velocity * other.mass)))
+        //                  / other.mass;
+        // this.velocity = this_velocity;
+        // other.velocity = other_velocity;
+        
         var rise = -(other.x - this.x);
         var run = other.y - this.y;
         this.reflect(run, rise);
         other.reflect(run, rise);
-        this_velocity = ((this.velocity * this.mass) + (other.velocity * other.mass) +
-                        ((1 - MOMENTUM_TRANSFER_RATE) * Math.abs((this.velocity * this.mass) - (other.velocity * other.mass))))
-                        / (2 * this.mass);
-        other_velocity = ((this.mass * this_velocity) -
-                         (1 - MOMENTUM_TRANSFER_RATE) * Math.abs((this.velocity * this.mass) - (other.velocity * other.mass)))
-                         / other.mass;
+        this_velocity = ((MOMETUM_TRANSFER_RATE * other.velocity * other.mass) +
+                        ((1 - MOMENTUM_TRANSFER_RATE) * this.velocity * this.mass)) /
+                        this.mass
+        other_velocity = ((MOMETUM_TRANSFER_RATE * this.velocity * this.mass) +
+                         ((1 - MOMENTUM_TRANSFER_RATE) * other.velocity * other.mass)) /
+                         other.mass
         this.velocity = this_velocity;
         other.velocity = other_velocity;
     };
