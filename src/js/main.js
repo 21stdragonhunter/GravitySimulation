@@ -20,10 +20,10 @@ function canvasApp() {
     };
     Vector.prototype.reflect = function(run, rise) {  // reflects the slope of the particle over the slope given
         var theta = Math.atan(rise / run);
-        var phi = Math. atan(rise / run);
-        var alpha = Math.abs(theta - phi);
-        this.move_y = Math.sin(theta - alpha);
-        this.move_x = Math.cos(theta - alpha);
+        var phi = Math.atan(rise / run);
+        var alpha = phi - theta;
+        this.move_y = Math.sin(phi + alpha);
+        this.move_x = Math.cos(phi + alpha);
     };
 
     var Particle = function Particle(vector, velocity, mass, radius) {
