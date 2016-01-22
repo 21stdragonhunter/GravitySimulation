@@ -5,6 +5,7 @@ function eventWindowLoaded() {
 
 function canvasApp() {
     var MOMENTUM_TRANSFER_RATE = 0.8;
+    MOMENTUM_TRANSFER_RATE = 1;
 
     var Vector = function Vector(x, y, move_x, move_y) {
         this.x = x;
@@ -45,17 +46,17 @@ function canvasApp() {
         //                  / other.mass;
         // this.velocity = this_velocity;
         // other.velocity = other_velocity;
-        
+
         var rise = -(other.x - this.x);
         var run = other.y - this.y;
         this.reflect(run, rise);
         other.reflect(run, rise);
-        this_velocity = ((MOMETUM_TRANSFER_RATE * other.velocity * other.mass) +
+        var this_velocity = ((MOMENTUM_TRANSFER_RATE * other.velocity * other.mass) +
                         ((1 - MOMENTUM_TRANSFER_RATE) * this.velocity * this.mass)) /
-                        this.mass
-        other_velocity = ((MOMETUM_TRANSFER_RATE * this.velocity * this.mass) +
+                        this.mass;
+        var other_velocity = ((MOMENTUM_TRANSFER_RATE * this.velocity * this.mass) +
                          ((1 - MOMENTUM_TRANSFER_RATE) * other.velocity * other.mass)) /
-                         other.mass
+                         other.mass;
         this.velocity = this_velocity;
         other.velocity = other_velocity;
     };
